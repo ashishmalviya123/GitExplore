@@ -1,9 +1,10 @@
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, Dimensions, Button } from 'react-native'
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, Dimensions, Button, ToastAndroid } from 'react-native'
 import React from 'react'
 import Heading from '../Component/Heading'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFavorite, removeFavorite } from '../../../Redux/Action/FavoriteAction';
+import { color } from '../Component/BaseColour';
 
 const HEIGHT = Dimensions.get('window').height
 const WIDTH = Dimensions.get('window').width
@@ -16,36 +17,45 @@ const Detail = ({ navigation, ...props }) => {
 
     const handleAddFavorite = (item) => {
         dispatch(addFavorite(item));
+        ToastAndroid.show('Added to favorites', ToastAndroid.SHORT)
     };
 
     const handleRemoveFavorite = (itemId) => {
         dispatch(removeFavorite(itemId));
+        ToastAndroid.show('Removed from favorites', ToastAndroid.SHORT)
     };
 
     return (
         <View style={isDarkMode ? styles.mainContainerDark : styles.mainContainerLight}>
             <Heading Title={'Detail'} onPress={() => navigation.goBack()} />
-            <ScrollView>
+            <ScrollView contentContainerStyle={{ paddingBottom: '6%' }}>
                 <View style={isDarkMode ? styles.SecondContainerDark : styles.SecondContainerLight}>
                     <View>
                         <View style={styles.FavoritesContainer}>
-                            {isFavorite ? <TouchableOpacity style={styles.FavoriteIcon} onPress={() => handleAddFavorite(props?.route?.params?.item)}>
+                            {isFavorite ?
                                 <AntDesign name="heart" size={25} color="red" style={{}} />
-                            </TouchableOpacity> :
-                                <TouchableOpacity style={styles.FavoriteIcon} onPress={() => handleRemoveFavorite(props?.route?.params?.item?.id)}>
-                                    <AntDesign name="hearto" size={25} color="#000" style={{}} />
-                                </TouchableOpacity>}
+                                :
+                                <AntDesign name="hearto" size={25} color="#000" style={{}} />
+                            }
                         </View>
                         <Image source={{ uri: props?.route?.params?.item?.owner?.avatar_url }} style={styles.image} />
                     </View>
                     <View style={styles.textContainer}>
                         {!isFavorite ?
-                            <Button
-                                title="Add to Favorites" onPress={() => handleAddFavorite(props?.route?.params?.item)}
-                            /> :
-                            <Button
-                                title="Remove from Favorites" onPress={() => handleRemoveFavorite(props?.route?.params?.item.id)}
-                            />}
+                            // <Button
+                            //     title="Add to Favorites" onPress={() => handleAddFavorite(props?.route?.params?.item)}
+                            // /> 
+                            <TouchableOpacity style={styles.FavButtonDark} onPress={() => handleAddFavorite(props?.route?.params?.item)}>
+                                <Text style={isDarkMode ? styles.FavTextDark : styles.FavTextLight}>Add to Favorites </Text>
+                            </TouchableOpacity>
+                            :
+                            <TouchableOpacity style={styles.FavButtonDark } onPress={() => handleRemoveFavorite(props?.route?.params?.item.id)}>
+                                <Text style={isDarkMode ? styles.FavTextDark : styles.FavTextLight}>Remove from Favorites</Text>
+                            </TouchableOpacity>
+                            // <Button
+                            //     title="Remove from Favorites" onPress={() => handleRemoveFavorite(props?.route?.params?.item.id)}
+                            // />
+                        }
                         <View style={styles.CardDetail}>
                             <Text style={isDarkMode ? styles.TitleDaRK : styles.TitleLight}>Name</Text>
                             <Text style={styles.colontext}>:</Text>
@@ -101,6 +111,8 @@ const styles = StyleSheet.create({
     DiscriptionTextTitleDark: { color: '#fff', fontSize: 16, marginTop: 6, fontWeight: '800', textAlign: 'center' },
     DiscriptionTextTitleLight: { color: "#000", fontSize: 16, marginTop: 6, fontWeight: '800', textAlign: 'center' },
     DiscriptionText: { textAlign: 'center', margin: 6, color: 'grey', },
-    FavoriteIcon: { alignSelf: 'center', alignItems: 'center', justifyContent: 'center', alignContent: 'center' },
     Description: { borderWidth: 1, borderColor: 'grey', borderRadius: 12, },
+    FavButtonDark: { backgroundColor: color.base, padding: 8, borderRadius: 6, borderColor: '#fff' },
+    FavTextDark: { textAlign: 'center', color: '#fff', fontSize: 14, fontWeight: '500' },
+    FavTextLight: { textAlign: 'center', color: '#fff', fontSize: 14, fontWeight: '500' },
 })

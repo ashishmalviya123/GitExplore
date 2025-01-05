@@ -23,6 +23,7 @@ const Home = ({ navigation }) => {
     useEffect(() => {
         handleSearch('query')
     }, [])
+
     const handleSearch = (query) => {
         if (query) {
             dispatch(SearchAction(query));
@@ -54,8 +55,6 @@ const Home = ({ navigation }) => {
             </TouchableOpacity>
         )
     }
-
-
 
     const ListFooter = () => {
         return (

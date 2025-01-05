@@ -11,8 +11,6 @@ import { useSelector } from 'react-redux';
 const Tab = createBottomTabNavigator();
 
 const Bottom = () => {
-    const isDarkMode = useSelector((state) => state?.DarkModeReducer?.isDarkMode);
-
     return (
         <Tab.Navigator screenOptions={{
             tabBarHideOnKeyboard: true, tabBarStyle: styles.mainContainer,

@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { color } from '../Component/BaseColour';
 import StatusBars from '../Component/StatusBars';
 import ListEmptyComponent from '../Component/ListEmptyComponent';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import Entypo from 'react-native-vector-icons/Entypo';
 import { useSelector } from 'react-redux';
 import { useIsFocused } from '@react-navigation/native';
 import Heading from '../Component/Heading';
