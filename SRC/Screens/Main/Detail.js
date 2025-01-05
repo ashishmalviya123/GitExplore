@@ -1,4 +1,4 @@
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, Dimensions, Button, ToastAndroid } from 'react-native'
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, Dimensions, ToastAndroid } from 'react-native'
 import React from 'react'
 import Heading from '../Component/Heading'
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -42,19 +42,13 @@ const Detail = ({ navigation, ...props }) => {
                     </View>
                     <View style={styles.textContainer}>
                         {!isFavorite ?
-                            // <Button
-                            //     title="Add to Favorites" onPress={() => handleAddFavorite(props?.route?.params?.item)}
-                            // /> 
                             <TouchableOpacity style={styles.FavButtonDark} onPress={() => handleAddFavorite(props?.route?.params?.item)}>
                                 <Text style={isDarkMode ? styles.FavTextDark : styles.FavTextLight}>Add to Favorites </Text>
                             </TouchableOpacity>
                             :
-                            <TouchableOpacity style={styles.FavButtonDark } onPress={() => handleRemoveFavorite(props?.route?.params?.item.id)}>
+                            <TouchableOpacity style={styles.FavButtonDark} onPress={() => handleRemoveFavorite(props?.route?.params?.item.id)}>
                                 <Text style={isDarkMode ? styles.FavTextDark : styles.FavTextLight}>Remove from Favorites</Text>
                             </TouchableOpacity>
-                            // <Button
-                            //     title="Remove from Favorites" onPress={() => handleRemoveFavorite(props?.route?.params?.item.id)}
-                            // />
                         }
                         <View style={styles.CardDetail}>
                             <Text style={isDarkMode ? styles.TitleDaRK : styles.TitleLight}>Name</Text>

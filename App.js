@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import MyStack from './SRC/Screens/Navigations/MyStack';
 import NetInfo from "@react-native-community/netinfo";
 import configureStore from './Redux/Store/Store';
-import { PaperProvider } from 'react-native-paper';
 
 const store = configureStore();
 

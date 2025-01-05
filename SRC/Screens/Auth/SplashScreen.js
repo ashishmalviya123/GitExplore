@@ -18,7 +18,6 @@ const SplashScreen = ({ navigation }) => {
         dispatch(SearchAction(query));
     };
 
-
     const styles = StyleSheet.create({
         mainContainer: { flex: 1, justifyContent: 'center', backgroundColor: isDarkMode ? "#000" : '#fff', alignContent: 'center' },
         Button: { backgroundColor: 'blue', alignSelf: 'center', justifyContent: 'center', width: '80%', borderRadius: 50, flexDirection: 'row' },
@@ -27,7 +26,7 @@ const SplashScreen = ({ navigation }) => {
 
     return (
         <View style={styles.mainContainer}>
-            <TouchableOpacity activeOpacity={0.9} style={styles.Button} onPress={() => navigation.navigate('Bottom')}>
+            <TouchableOpacity activeOpacity={0.9} style={styles.Button} onPress={() => { handleSearch('query'); navigation.navigate('Bottom') }}>
                 <Text style={styles.Text}>Get Started</Text>
                 <FontAwesome5 name="arrow-right" size={19} color="#fff" style={{ alignSelf: "center", }} />
             </TouchableOpacity>

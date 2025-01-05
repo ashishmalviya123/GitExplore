@@ -1,4 +1,4 @@
-import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { color } from '../Component/BaseColour';
 import StatusBars from '../Component/StatusBars';
@@ -18,6 +18,7 @@ const Home = ({ navigation }) => {
     const isDarkMode = useSelector((state) => state?.DarkModeReducer?.isDarkMode);
     const { repositories, loading, error } = useSelector(state => state.SearchReducer);
     const [search, setSearch] = useState('')
+
     const theme = isDarkMode ? DarkTheme : DefaultTheme;
 
     useEffect(() => {
@@ -25,10 +26,7 @@ const Home = ({ navigation }) => {
     }, [])
 
     const handleSearch = (query) => {
-        if (query) {
-            dispatch(SearchAction(query));
-            console.log(query);
-        }
+        dispatch(SearchAction(query));
     };
 
     const renderItem = ({ item }) => {
@@ -88,14 +86,13 @@ const Home = ({ navigation }) => {
                     <View style={{ bottom: 2, }}>
                         <EvilIcons name="search" size={19} color={isDarkMode ? '#fff' : "#000"} style={{ padding: 6, paddingHorizontal: 6 }} />
                     </View>
-                    <TextInput placeholderTextColor={isDarkMode ? '#fff' : '#000'} placeholder='Search repository' value={search} onChangeText={(txt) => { setSearch(txt); handleSearch(txt) }} style={isDarkMode ? styles.TextInputLightMode : styles.TextInputDarkMode} />
-                    {search ? <TouchableOpacity onPress={() => { setSearch(''); handleSearch('query') }}>
+                    <TextInput placeholderTextColor={isDarkMode ? '#fff' : '#000'} maxLength={10} placeholder='Search repository' value={search} onChangeText={(txt) => { setSearch(txt); handleSearch(txt); }} style={isDarkMode ? styles.TextInputLightMode : styles.TextInputDarkMode} />
+                    {search ? <TouchableOpacity onPress={() => { handleSearch('query'); setSearch(''); }}>
                         <Entypo name="circle-with-cross" size={19} color={isDarkMode ? '#fff' : "#000"} />
                     </TouchableOpacity> : null}
                 </View>
             </View>
-            {/* filterData(txt); */}
-            <FlatList data={repositories?.items} renderItem={renderItem} contentContainerStyle={{ paddingBottom: '8%' }}
+            <FlatList data={repositories?.items} extraData={search} renderItem={renderItem} contentContainerStyle={{ paddingBottom: '8%' }}
                 keyExtractor={item => item.id} ListEmptyComponent={ListEmptyComponent} ListFooterComponent={ListFooter} />
         </View>
     )

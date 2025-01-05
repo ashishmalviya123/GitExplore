@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, Image } from 'react-native';
+import { Text, View, StyleSheet,  } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../Main/Home';
 import Favourite from '../Main/Favourite';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { color } from '../Component/BaseColour';
-import { useSelector } from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 
