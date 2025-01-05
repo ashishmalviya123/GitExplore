@@ -1,13 +1,14 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { thunk } from 'redux-thunk';
-import GitRepositoryReducer from '../Reducer/GitRepositoryReducer';
-import FavoriteReducer from '../Reducer/FavoriteReducer';
+
 import DarkModeReducer from '../Reducer/DarkModeReducer';
+import SearchReducer from '../Reducer/SearchReducer';
+import FavoriteReducer from '../Reducer/FavoriteReducer';
 
 const rootReducer = combineReducers({
-    GitRepositoryReducer: GitRepositoryReducer,
+    DarkModeReducer: DarkModeReducer,
+    SearchReducer: SearchReducer,
     FavoriteReducer: FavoriteReducer,
-    DarkModeReducer:DarkModeReducer,
 });
 
 const configureStore = () => {

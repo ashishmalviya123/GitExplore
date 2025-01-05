@@ -1,17 +1,29 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect } from 'react'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useIsFocused } from '@react-navigation/native';
-import { GitRepositoryAction } from '../../../Redux/Action/GitRepositoryAction';
+import { SearchAction } from '../../../Redux/Action/SearchAction';
 
 const SplashScreen = ({ navigation }) => {
     const dispatch = useDispatch()
     const isFocused = useIsFocused()
-    
+    const isDarkMode = useSelector((state) => state?.DarkModeReducer?.isDarkMode);
+
     useEffect(() => {
-        dispatch(GitRepositoryAction());
-    }, [isFocused]);
+        handleSearch('query')
+    }, [])
+
+    const handleSearch = (query) => {
+        dispatch(SearchAction(query));
+    };
+
+
+    const styles = StyleSheet.create({
+        mainContainer: { flex: 1, justifyContent: 'center', backgroundColor: isDarkMode ? "#000" : '#fff', alignContent: 'center' },
+        Button: { backgroundColor: 'blue', alignSelf: 'center', justifyContent: 'center', width: '80%', borderRadius: 50, flexDirection: 'row' },
+        Text: { padding: '3%', textAlign: 'center', width: 140, fontSize: 19, color: '#fff', }
+    })
 
     return (
         <View style={styles.mainContainer}>
@@ -25,8 +37,3 @@ const SplashScreen = ({ navigation }) => {
 
 export default SplashScreen
 
-const styles = StyleSheet.create({
-    mainContainer: { flex: 1, justifyContent: 'center', alignContent: 'center' },
-    Button: { backgroundColor: 'blue', alignSelf: 'center', justifyContent: 'center', width: '80%', borderRadius: 50, flexDirection: 'row' },
-    Text: { padding: '3%', textAlign: 'center', width: 140, fontSize: 19, color: '#fff', }
-})

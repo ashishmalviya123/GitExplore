@@ -6,10 +6,13 @@ import Favourite from '../Main/Favourite';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { color } from '../Component/BaseColour';
+import { useSelector } from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 
 const Bottom = () => {
+    const isDarkMode = useSelector((state) => state?.DarkModeReducer?.isDarkMode);
+
     return (
         <Tab.Navigator screenOptions={{
             tabBarHideOnKeyboard: true, tabBarStyle: styles.mainContainer,
@@ -37,8 +40,7 @@ export default Bottom
 
 const styles = StyleSheet.create({
     mainContainer: {
-        height: '7%', 
-        backgroundColor: color.base, elevation: 0, borderTopWidth: 0, width: '100%', alignSelf: 'center'
+        height: '7%', backgroundColor: color.base, elevation: 0, borderTopWidth: 0, width: '100%', alignSelf: 'center'
     },
     selectedText: { color: '#FFFFFF', width: 80, alignSelf: 'center', textAlign: 'center', fontSize: 12, },
     unselectedText: { color: '#8D899A', width: 80, alignSelf: 'center', textAlign: 'center', fontSize: 12, },

@@ -1,32 +1,33 @@
-import { FETCH_DATA_FAILURE, FETCH_DATA_REQUEST, FETCH_DATA_SUCCESS } from "../Action/GitRepositoryAction";
 
 const initialState = {
+    repositories: [],
     loading: false,
-    data: [],
     error: null,
 };
-const GitRepositoryReducer = (state = initialState, action) => {
+
+const SearchReducer = (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_DATA_REQUEST:
+        case 'SEARCH_REPOSITORIES':
             return {
                 ...state,
                 loading: true,
+                error: null,
             };
-        case FETCH_DATA_SUCCESS:
+        case 'FETCH_REPOSITORIES_SUCCESS':
+            return {
+                ...state,
+                repositories: action.payload,
+                loading: false,
+            };
+        case 'FETCH_REPOSITORIES_FAILURE':
             return {
                 ...state,
                 loading: false,
-                data: action.payload,
-            };
-        case FETCH_DATA_FAILURE:
-            return {
-                ...state,
-                loading: false,
-                error: action.payload,
+                error: action.error,
             };
         default:
             return state;
     }
 };
 
-export default GitRepositoryReducer;
+export default SearchReducer;
